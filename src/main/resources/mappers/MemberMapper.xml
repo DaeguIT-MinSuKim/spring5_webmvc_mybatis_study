@@ -38,4 +38,11 @@
 		  from member 
 		 where email=#{email}
 	</delete>
+	
+	<select id="selectMemberByRegdate" parameterType="ListCommand" resultMap="resMember">
+		select id, email, password, name, regdate 
+		  from member 
+		 where regdate between #{from} and #{to} 
+		 order by regdate desc
+	</select>
 </mapper>
