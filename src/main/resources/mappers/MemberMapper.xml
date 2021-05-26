@@ -17,6 +17,12 @@
 		  FROM member
 	</select>
 	
+	<select id="selectMemberById" resultMap="resMember">
+		SELECT id, email, password, name, regdate
+		  FROM member
+		 WHERE id = #{id}
+	</select>
+	
 	<select id="countMember" resultType="int">
 		select count(*) from member
 	</select>

@@ -107,4 +107,14 @@ public class MemberMapperTest {
 		
 		list.forEach(s->log.debug(s.toString()));
 	}
+	
+	@Test
+	public void test8SelectMemberById() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		
+		Member member = mapper.selectMemberById(28);
+		Assert.assertNotNull(member);
+		
+		log.debug(member.toString());
+	}
 }
