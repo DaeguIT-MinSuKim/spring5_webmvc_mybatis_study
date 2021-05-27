@@ -1,5 +1,6 @@
 select id, email, password, name, regdate from member;
 
+delete from member where id >46;
 
 select * 
   from member 

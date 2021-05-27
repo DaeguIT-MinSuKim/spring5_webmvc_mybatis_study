@@ -1,11 +1,20 @@
 package spring5_webmvc_mybatis_study.dto;
 
-public class RegisterRequest {
-	private String email;
-	private String password;
-	private String confirmPassword;
-	private String name;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
+public class RegisterRequest {
+	@NotBlank
+	@Email
+	private String email;
+	@Size(min = 6)
+	private String password;
+	@NotEmpty
+	private String confirmPassword;
+	@NotEmpty
+	private String name;
 	public boolean isPasswordEqualToConfirmPassword() {
 		return password.equals(confirmPassword);
 	}
