@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import spring5_webmvc_mybatis_study.dto.Member;
 import spring5_webmvc_mybatis_study.dto.RegisterRequest;
 import spring5_webmvc_mybatis_study.exception.DuplicateMemberException;
+import spring5_webmvc_mybatis_study.exception.MemberNotFoundException;
 import spring5_webmvc_mybatis_study.service.RestMemberService;
 
 @RestController
@@ -30,15 +31,20 @@ public class RestMemberController {
 	}
 	
 	@GetMapping("/api/members/{id}")
-    public Member member(@PathVariable Long id, Errors errors,  HttpServletResponse response) throws IOException {
+    public Member member(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Member member = service.showMemberById(id);
         if (member == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return null;
+        	throw new MemberNotFoundException();
         }
         return member;
     }
 
+//    @ExceptionHandler(MemberNotFoundException.class)
+//    public ResponseEntity<ErrorResponse> handleNoData(){
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("no member"));
+//    }
+
+    
 	@PostMapping("/api/members")
     public void newMember(@RequestBody @Valid RegisterRequest regReq, Errors errors, HttpServletResponse response) throws IOException {
         try {
